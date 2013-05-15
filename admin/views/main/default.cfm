@@ -29,6 +29,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	<!---<ul id="navTask">
 		<li><a href="#buildURL('admin:main.another')#">Another Page</a></li>
 	</ul>--->
+	<form action="#buildURL('admin:main.deleteComments')#" method="post">
 	<table width="100%" id="siteComments">
 		<tr>
 			<th>Name</th>
@@ -37,6 +38,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			<th>Date Entered</th>
 			<th>Comment</th>
 			<th>Delete</th>
+			<th>select</th>
 		</tr>
 		<cfloop query="rc.qGetComments">
 			<tr>
@@ -52,7 +54,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 				<td>
 					<a href="#buildURL('admin:main.default?cid=#URLEncodedFormat(commentid)#')#" onclick="return confirm('Delete the comment by #name#? [Comment Date: #dateformat(entered, 'short')#]')">Delete</a>
 				</td>
+				<td><input type="checkbox" name="selectedComments" value="#URLEncodedFormat(commentid)#"></td>
 			</tr>
 		</cfloop>
 	</table>
+	<div style="margin-bottom: 18px;" class="row">
+		<button type="submit" value="save" class="btn btn-danger pull-right" onclick="return confirm('Delete the selected comment(s)')"><i class="icon-trash icon-white" data-original-title=""></i>
+Delete selection</button>
+	</div>
+	</form>
 </cfoutput>
