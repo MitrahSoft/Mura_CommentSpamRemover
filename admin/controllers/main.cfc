@@ -42,5 +42,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 			where siteid = '#session.siteid#'
 		</cfquery>
 	</cffunction>
+	
+	<cffunction name="deleteComments" output="false" returntype="any">
+		<cfargument name="rc" />
+		
+		<cfif structkeyexists(rc, "selectedComments")>
+			<cfquery datasource="#rc.$.getConfigBean().getDatasource()#">
+				delete from tcontentcomments
+				where commentid in ( <cfqueryparam value="#urldecode(rc.selectedComments)#" cfsqltype="cf_sql_varchar" list="true">)
+			</cfquery>
+		</cfif>
+
+	</cffunction>
 
 </cfcomponent>
